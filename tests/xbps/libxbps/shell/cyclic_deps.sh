@@ -51,7 +51,7 @@ cyclic_dep_vpkg2_body() {
 	cd ..
 
 	xbps-install -r root --repository=$PWD/some_repo -dy C
-	atf_check_equal $? 40
+	atf_check_equal $? 62
 }
 
 atf_test_case cyclic_dep_full

@@ -21,7 +21,7 @@ conflicts_trans_body() {
 
 	xbps-install -r root --repository=$PWD/some_repo -dy A B
 	# EAGAIN, conflicts.
-	atf_check_equal $? 11
+	atf_check_equal $? 35
 	# 0 pkgs installed.
 	xbps-query -r root -l|wc -l
 	atf_check_equal $(xbps-query -r root -l|wc -l) 0
@@ -57,7 +57,7 @@ conflicts_trans_hold_body() {
 
 	echo "B updated to 1.1_1"
 	xbps-install -r root --repository=$PWD/some_repo -dyuv B
-	atf_check_equal $? 11
+	atf_check_equal $? 35
 
 	echo "B is now on hold"
 	xbps-pkgdb -r root -m hold B
@@ -91,7 +91,7 @@ conflicts_trans_vpkg_body() {
 
 	xbps-install -r root --repository=$PWD/some_repo -dy A C
 	# EAGAIN, conflicts.
-	atf_check_equal $? 11
+	atf_check_equal $? 35
 	# 0 pkgs installed.
 	xbps-query -r root -l|wc -l
 	atf_check_equal $(xbps-query -r root -l|wc -l) 0
@@ -120,7 +120,7 @@ conflicts_trans_multi_body() {
 
 	xbps-install -r root --repository=$PWD/some_repo -dy A C
 	# EAGAIN, conflicts.
-	atf_check_equal $? 11
+	atf_check_equal $? 35
 	atf_check_equal $(xbps-query -r root -l|wc -l) 0
 }
 
@@ -146,7 +146,7 @@ conflicts_installed_body() {
 	xbps-install -r root --repository=$PWD/some_repo -dy A
 	atf_check_equal $? 0
 	xbps-install -r root --repository=$PWD/some_repo -dy B
-	atf_check_equal $? 11
+	atf_check_equal $? 35
 	xbps-query -r root -l|wc -l
 	atf_check_equal $(xbps-query -r root -l|wc -l) 1
 }
@@ -175,7 +175,7 @@ conflicts_installed_multi_body() {
 	xbps-install -r root --repository=$PWD/some_repo -dy A
 	atf_check_equal $? 0
 	xbps-install -r root --repository=$PWD/some_repo -dy C
-	atf_check_equal $? 11
+	atf_check_equal $? 35 
 	xbps-query -r root -l|wc -l
 	atf_check_equal $(xbps-query -r root -l|wc -l) 1
 }
@@ -202,7 +202,7 @@ conflicts_trans_installed_body() {
 	xbps-install -r root --repository=$PWD/some_repo -dy B
 	atf_check_equal $? 0
 	xbps-install -r root --repository=$PWD/some_repo -dy A
-	atf_check_equal $? 11
+	atf_check_equal $? 35 
 	xbps-query -r root -l|wc -l
 	atf_check_equal $(xbps-query -r root -l|wc -l) 1
 }
@@ -249,7 +249,7 @@ conflicts_trans_update_body() {
 	atf_check_equal $(xbps-query -r root -p pkgver B) B-1.0_1
 
 	xbps-install -r root --repository=$PWD/repo2 -dyvf B-1.1_1
-	atf_check_equal $? 11
+	atf_check_equal $? 35 
 }
 
 atf_test_case conflicts_trans_installed_multi
@@ -276,7 +276,7 @@ conflicts_trans_installed_multi_body() {
 	xbps-install -r root --repository=$PWD/some_repo -dy C
 	atf_check_equal $? 0
 	xbps-install -r root --repository=$PWD/some_repo -dy A
-	atf_check_equal $? 11
+	atf_check_equal $? 35 
 	xbps-query -r root -l|wc -l
 	atf_check_equal $(xbps-query -r root -l|wc -l) 2
 }
