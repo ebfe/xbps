@@ -113,7 +113,7 @@ register_dups_body() {
 	atf_check_equal $? 0
 	xbps-install -r root --repository=repo -ydfv A
 	atf_check_equal $? 0
-	atf_check_equal "$(xbps-alternatives -r root -l|wc -l)" 3
+	atf_check_equal $(xbps-alternatives -r root -l|wc -l)  3
 }
 
 atf_test_case register_multi

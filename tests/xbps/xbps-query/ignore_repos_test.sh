@@ -22,7 +22,7 @@ ignore_system_body() {
 	mkdir -p root/${systemdir}
 	echo "repository=$PWD/repo1" > root/${systemdir}/myrepo.conf
 	out="$(xbps-query -C empty.conf --repository=$PWD/repo -i -L|wc -l)"
-	atf_check_equal "$out" 1
+	atf_check_equal $out 1
 }
 
 atf_test_case ignore_conf
@@ -45,7 +45,7 @@ ignore_conf_body() {
 	mkdir -p root/xbps.d
 	echo "repository=$PWD/repo1" > root/xbps.d/myrepo.conf
 	out="$(xbps-query -r root -C xbps.d --repository=$PWD/repo -i -L|wc -l)"
-	atf_check_equal "$out" 1
+	atf_check_equal $out 1
 }
 
 atf_init_test_cases() {
