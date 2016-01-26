@@ -28,8 +28,8 @@ conf_head() {
 }
 conf_body() {
 	mkdir -p xbps.d
-	echo "architecture=x86_64-musl" > xbps.d/arch.conf
-	atf_check_equal $(xbps-uhelper -C $PWD/xbps.d arch) x86_64-musl
+	echo "architecture=amd64-musl" > xbps.d/arch.conf
+	atf_check_equal $(xbps-uhelper -C $PWD/xbps.d arch) amd64-musl
 }
 
 atf_init_test_cases() {
