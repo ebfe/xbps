@@ -21,7 +21,7 @@ tc1_body() {
 	xbps-install -C null.conf -r rootdir --repository=$PWD -yvd a
 	atf_check_equal $? 0
 
-	sed -e 's,fooblah,blahfoo,' -i rootdir/cf1.conf
+	gsed -e 's,fooblah,blahfoo,' -i rootdir/cf1.conf
 	mkdir pkg_a
 	echo "fooblah" > pkg_a/cf1.conf
 	xbps-create -A noarch -n a-0.2_1 -s "pkg a" --config-files "/cf1.conf" pkg_a
@@ -61,7 +61,7 @@ tc2_body() {
 	xbps-install -C null.conf -r rootdir --repository=$PWD -yvd a
 	atf_check_equal $? 0
 
-	sed -e 's,fooblah,blahfoo,' -i rootdir/cf1.conf
+	gsed -e 's,fooblah,blahfoo,' -i rootdir/cf1.conf
 	chmod 644 rootdir/cf1.conf
 	mkdir pkg_a
 	echo "bazbar" > pkg_a/cf1.conf
@@ -110,7 +110,7 @@ tc3_body() {
 	xbps-install -C null.conf -r rootdir --repository=$PWD -yvd a
 	atf_check_equal $? 0
 
-	sed -e 's,fooblah,blahfoo,' -i rootdir/cf1.conf
+	gsed -e 's,fooblah,blahfoo,' -i rootdir/cf1.conf
 	chmod 644 rootdir/cf1.conf
 	mkdir pkg_a
 	echo "fooblah" > pkg_a/cf1.conf
