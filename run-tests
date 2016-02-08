@@ -5,6 +5,7 @@ for f in bin/*; do
 done
 export PATH=$PATH:/usr/local/bin
 export LD_PRELOAD=$PWD/lib/libxbps.so
+export ATF_SHELL=/usr/local/bin/bash
 
 kyua test -r result.db -k tests/xbps/Kyuafile
 rv=$?
