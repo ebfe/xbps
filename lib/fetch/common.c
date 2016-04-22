@@ -332,6 +332,7 @@ fetch_connect(struct url *url, int af, int verbose)
 }
 
 static pthread_mutex_t cache_mtx = PTHREAD_MUTEX_INITIALIZER;
+static pthread_once_t once_init_ssl = PTHREAD_ONCE_INIT;
 static conn_t *connection_cache;
 static int cache_global_limit = 0;
 static int cache_per_host_limit = 0;
@@ -936,6 +937,14 @@ fetch_ssl_cb_verify_crt(int verified, X509_STORE_CTX *ctx)
 
 #endif
 
+#ifdef WITH_SSL
+static void
+init_ssl(void) {
+	SSL_library_init();
+	SSL_load_error_strings();
+}
+#endif
+
 /*
  * Enable SSL on a connection.
  */
@@ -948,14 +957,10 @@ fetch_ssl(conn_t *conn, const struct url *URL, int verbose)
 	X509_NAME *name;
 	char *str;
 
-	/* Init the SSL library and context */
-	if (!SSL_library_init()){
-		fprintf(stderr, "SSL library init failed\n");
-		return (-1);
-	}
+	/* Init the SSL library */
+	pthread_once(&once_init_ssl, init_ssl);
 
-	SSL_load_error_strings();
-
+	/* Init the SSL context */
 	conn->ssl_meth = SSLv23_client_method();
 	conn->ssl_ctx = SSL_CTX_new(conn->ssl_meth);
 	SSL_CTX_set_mode(conn->ssl_ctx, SSL_MODE_AUTO_RETRY);
