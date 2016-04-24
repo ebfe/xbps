@@ -963,7 +963,7 @@ fetch_ssl(conn_t *conn, const struct url *URL, int verbose)
 
 	(void)pthread_once(&ssl_init_once, ssl_init);
 
-	conn->ssl_ctx = SSL_CTX_new(SSLv23_client_method());
+	conn->ssl_ctx = SSL_CTX_new(TLS_client_method());
 	if (conn->ssl_ctx == NULL) {
 		fprintf(stderr, "failed to create SSL context\n");
 		ERR_print_errors_fp(stderr);
