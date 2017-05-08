@@ -442,6 +442,7 @@ ftp_mode_type(conn_t *conn, int mode, int type)
 		break;
 	case 'd':
 		type = 'D';
+		/* fallthru */
 	case 'D':
 		/* can't handle yet */
 	default:
