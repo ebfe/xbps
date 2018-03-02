@@ -32,7 +32,21 @@ set -e -x
 sudo apt-get update -qq
 sudo apt-get install -y gdb liblua5.2-0 liblua5.2-dev \
     libsqlite3-0 libsqlite3-dev pkg-config sqlite3 \
-    libssl-dev libarchive-dev
+    libssl-dev
+
+install_libarchive() {
+    local version="${1}"; shift
+    local fname="v${version}.tar.gz"
+    wget --no-check-certificate https://github.com/libarchive/libarchive/archive/${fname}
+    tar -xzvf ${fname}
+    cd libarchive-${version}
+    autoreconf -fi
+    ./configure
+    make -j16
+    sudo make install
+    cd -
+    rm -rf "libarchive-${version}" "${fname}"
+}
 
 install_from_github() {
     local project="${1}"; shift
@@ -61,6 +75,8 @@ install_from_github() {
     rm -rf "${distname}" "${distname}.tar.gz"
 }
 
+install_libarchive 3.2.0
 install_from_github atf atf 0.21
 install_from_github lutok lutok 0.4
 install_from_github kyua kyua 0.12
+
